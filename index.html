@@ -1,11 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#851c33">
+  <meta name="description" content="Matador Hunt: a riddle scavenger hunt you can play in your browser.">
+  <title>Matador Hunt</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="riddles.js" defer></script>
+  <script src="game.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
-<body>
-    <h1>MATADOR HUNT</h1>
+<body data-theme="crimson">
+  <header class="site-header">
+    <a href="./" class="brand" aria-label="Matador Hunt home">
+      <span class="brand-icon">M</span>
+      <span>MATADOR <b>HUNT</b></span>
+    </a>
+    <span class="header-note">Six riddles. One hunt.</span>
+    <button id="switch-player" class="header-button" type="button" hidden>Switch player</button>
+  </header>
+
+  <main>
+    <section id="entry-view" class="intro page-width">
+      <div class="intro-copy">
+        <span class="eyebrow">A SCAVENGER HUNT IN YOUR BROWSER</span>
+        <h1>The hunt<br>is <em>on.</em></h1>
+        <p>Solve clues, reveal a hint when you need one, and watch your score grow. Start with the sample riddles, then add your own.</p>
+        <div class="quick-rules">
+          <div><strong>06</strong><span>Riddles to solve</span></div>
+          <div><strong>10</strong><span>Points with no hints</span></div>
+          <div><strong>03</strong><span>Wrong tries before a 24-hour lock</span></div>
+        </div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-symbol" aria-hidden="true">✦</div>
+        <p class="eyebrow">READY, HUNTER?</p>
+        <h2>Choose a player name</h2>
+        <p>Progress is saved on this browser. Enter the same name later to continue your hunt.</p>
+        <form id="player-form">
+          <label for="player-input">Player name</label>
+          <input id="player-input" name="player" type="text" minlength="2" maxlength="20" pattern="[A-Za-z0-9 _-]{2,20}" autocomplete="nickname" placeholder="Your hunt name" required>
+          <button class="button button-primary" type="submit">Enter the hunt <span aria-hidden="true">→</span></button>
+        </form>
+        <div id="recent-players" class="recent-players" hidden>
+          <strong>Players on this browser</strong>
+          <div id="recent-list" class="recent-list"></div>
+        </div>
+        <small>No password or account is needed for this practice version.</small>
+      </div>
+    </section>
+
+    <section id="game-view" class="game page-width" hidden>
+      <div class="welcome">
+        <div>
+          <span class="eyebrow">YOUR HUNT IS UNDERWAY</span>
+          <h1>Welcome, <span id="player-name">hunter</span>.</h1>
+          <p>Choose a clue, think it through, and earn your points.</p>
+        </div>
+        <div class="score-card"><span>TOTAL POINTS</span><strong id="total-score">0</strong></div>
+      </div>
+
+      <nav class="tabs" aria-label="Game sections">
+        <button type="button" data-tab="riddles" class="active" aria-current="page">Riddles</button>
+        <button type="button" data-tab="progress">Progress</button>
+        <button type="button" data-tab="leaderboard">Local leaderboard</button>
+        <button type="button" data-tab="settings">Settings</button>
+      </nav>
+
+      <section id="riddles-panel" class="tab-panel" aria-labelledby="riddles-heading">
+        <div class="section-heading"><div><span class="eyebrow">FOLLOW THE CLUES</span><h2 id="riddles-heading">Available riddles</h2></div><span id="completed-count" class="count-badge">0 of 6 solved</span></div>
+        <div id="finish-banner" class="finish-banner" hidden>✦ &nbsp; Hunt complete! You solved every riddle.</div>
+        <div class="riddle-layout">
+          <div id="riddle-list" class="riddle-list" aria-label="Choose a riddle"></div>
+          <article id="riddle-detail" class="detail-card" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="progress-panel" class="tab-panel" aria-labelledby="progress-heading" hidden>
+        <div class="section-heading"><div><span class="eyebrow">SEE HOW FAR YOU HAVE COME</span><h2 id="progress-heading">Your progress</h2></div></div>
+        <div id="progress-list" class="rows"></div>
+      </section>
+
+      <section id="leaderboard-panel" class="tab-panel" aria-labelledby="leaderboard-heading" hidden>
+        <div class="section-heading"><div><span class="eyebrow">PLAYERS ON THIS BROWSER</span><h2 id="leaderboard-heading">Local leaderboard</h2></div></div>
+        <p class="section-note">Only names and scores saved on this device appear here.</p>
+        <div id="leaderboard-list" class="rows"></div>
+      </section>
+
+      <section id="settings-panel" class="tab-panel" aria-labelledby="settings-heading" hidden>
+        <div class="section-heading"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="settings-heading">Settings</h2></div></div>
+        <div class="settings-card">
+          <label for="theme-select">Color theme</label>
+          <select id="theme-select"><option value="crimson">Crimson</option><option value="midnight">Midnight</option></select>
+          <p>Saved for this player on this browser.</p>
+          <hr>
+          <button id="reset-progress" type="button" class="button button-outline">Reset my progress</button>
+          <p>Reset clears your clues and points, while keeping your player name.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <footer>MATADOR HUNT <span>·</span> A browser-based scavenger hunt</footer>
 </body>
 </html>
