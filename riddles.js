@@ -1,5 +1,3 @@
-// Edit this file to write your own scavenger hunt clues.
-// Answers are visible in browser source code. This edition is for practice.
 window.MATADOR_RIDDLES = [
   {
     id: 'keys',
